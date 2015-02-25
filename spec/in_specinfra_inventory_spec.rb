@@ -9,7 +9,7 @@ describe Fluent::SpecinfraInventoryInput do
 
   let(:config) do
     %[
-      span_time      300
+      time_span      300
       tag_prefix     test.prefix
       backend        exec
       inventory_keys ["cpu"]
@@ -25,7 +25,7 @@ describe Fluent::SpecinfraInventoryInput do
   end
 
   describe "config" do
-    example { expect(@d.instance.span_time).to eq 300 }
+    example { expect(@d.instance.time_span).to eq 300 }
     example { expect(@d.instance.tag_prefix).to eq "test.prefix" }
     example { expect(@d.instance.backend).to eq "exec" }
     example { expect(@d.instance.inventory_keys).to eq ["cpu"] }
@@ -46,7 +46,4 @@ describe Fluent::SpecinfraInventoryInput do
   describe "record" do
     example { expect(@d.instance.record("cpu")).to have_key "total" }
   end
-
-
-
 end

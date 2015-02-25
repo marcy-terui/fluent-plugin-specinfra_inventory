@@ -13,3 +13,7 @@
 *.a
 mkmf.log
 /vendor
+/*.conf
+/*.log.*
+/Vagrantfile
+/.vagrant

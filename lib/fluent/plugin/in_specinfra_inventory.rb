@@ -2,7 +2,7 @@ module Fluent
   class SpecinfraInventoryInput < Input
     Plugin.register_input('specinfra_inventory', self)
 
-    config_param :span_time,      :integer, default: 60
+    config_param :time_span,      :integer, default: 60
     config_param :tag_prefix,     :string,  default: 'specinfra.inventory'
     config_param :backend,        :string,  default: 'exec'
     config_param :family,         :string,  default: nil
@@ -59,7 +59,7 @@ module Fluent
         @inventory_keys.each do |key|
           Engine.emit(tag(key), time, record(key))
         end
-        sleep @span_time
+        sleep @timespan
       end
     end
 

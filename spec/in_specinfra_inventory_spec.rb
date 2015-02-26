@@ -5,6 +5,14 @@ describe Fluent::SpecinfraInventoryInput do
   before do
     Fluent::Test.setup
     @d = Fluent::Test::InputTestDriver.new(Fluent::SpecinfraInventoryInput).configure(config)
+    @d.instance.inventory = {
+      'cpu' => {
+        'total' => "2",
+        '0' => {
+          'vendor_id' => "1"
+        }
+      }
+    }
   end
 
   let(:config) do
@@ -12,7 +20,7 @@ describe Fluent::SpecinfraInventoryInput do
       time_span      300
       tag_prefix     test.prefix
       backend        exec
-      inventory_keys ["cpu"]
+      inventory_keys ["cpu.0"]
       family         ubuntu
       release        14.04
       arch           x86_64
@@ -28,7 +36,7 @@ describe Fluent::SpecinfraInventoryInput do
     example { expect(@d.instance.time_span).to eq 300 }
     example { expect(@d.instance.tag_prefix).to eq "test.prefix" }
     example { expect(@d.instance.backend).to eq "exec" }
-    example { expect(@d.instance.inventory_keys).to eq ["cpu"] }
+    example { expect(@d.instance.inventory_keys).to eq ["cpu.0"] }
     example { expect(@d.instance.family).to eq "ubuntu" }
     example { expect(@d.instance.release).to eq "14.04" }
     example { expect(@d.instance.arch).to eq "x86_64" }
@@ -43,7 +51,11 @@ describe Fluent::SpecinfraInventoryInput do
     example { expect(@d.instance.tag("cpu")).to eq "test.prefix.cpu" }
   end
 
-  describe "record" do
-    example { expect(@d.instance.record("cpu")).to have_key "total" }
+  describe "record on flat hash" do
+    example { expect(@d.instance.record("cpu")).to include('total' => "2") }
+  end
+
+  describe "record on nested hash" do
+    example { expect(@d.instance.record("cpu.0")).to include('vendor_id' => "1") }
   end
 end

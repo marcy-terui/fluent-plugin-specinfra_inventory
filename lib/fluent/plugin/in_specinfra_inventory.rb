@@ -15,6 +15,10 @@ module Fluent
     config_param :env,            :hash,    default: {}
     config_param :inventory_keys, :array
 
+    KEY_DELIMITER = "."
+
+    attr_accessor :inventory
+
     def initialize
       super
       require 'specinfra'
@@ -68,7 +72,11 @@ module Fluent
     end
 
     def record(key)
-      @inventory[key]
+      inv = @inventory
+      key.split(KEY_DELIMITER).each do |k|
+        inv = inv[k]
+      end
+      inv
     end
 
   end

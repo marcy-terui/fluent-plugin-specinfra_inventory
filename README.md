@@ -1,4 +1,5 @@
 # fluent-plugin-specinfra_inventory
+[![Gem Version](https://badge.fury.io/rb/fluent-plugin-specinfra_inventory.svg)](http://badge.fury.io/rb/fluent-plugin-specinfra_inventory)
 
 Specinfra Host Inventory Plugin for [Fluentd](http://github.com/fluent/fluentd)
 
@@ -25,7 +26,7 @@ Or install it yourself as:
   time_span      300
   tag_prefix     example.prefix
   backend        exec
-  inventory_keys ["cpu","memory"]
+  inventory_keys ["cpu.total","memory"]
   family         ubuntu
   release        14.04
   arch           x86_64
@@ -47,21 +48,22 @@ Event tags are added together inventory key at the end. like: `example.prefix.cp
 default: `specinfra.inventory`
 
 ### backend
-Specinfra backend type  
+Specinfra backend type.  
 default: `exec`
 
 
 ### inventory_keys
-Key of Host Inventory
+Key of Host Inventory.  
+If you access the key on nested Hash, you should separated by `.`
 
 ### family, release, arch
 See [Multi OS Support](http://serverspec.org/tutorial.html)
 
 ### path
-`PATH` environment variable
+Environment variable `PATH`
 
 ### host
-Target host
+Target hostname or IP
 
 ### ssh_user
 SSH user name

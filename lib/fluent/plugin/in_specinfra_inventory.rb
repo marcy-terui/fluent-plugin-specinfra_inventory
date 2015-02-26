@@ -63,7 +63,7 @@ module Fluent
         @inventory_keys.each do |key|
           Engine.emit(tag(key), time, record(key))
         end
-        sleep @timespan
+        sleep @time_span
       end
     end
 

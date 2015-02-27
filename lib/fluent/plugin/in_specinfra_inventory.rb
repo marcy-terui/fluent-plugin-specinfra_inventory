@@ -76,7 +76,7 @@ module Fluent
       key.split(KEY_DELIMITER).each do |k|
         inv = inv[k]
       end
-      inv
+      {key => inv}
     end
 
   end

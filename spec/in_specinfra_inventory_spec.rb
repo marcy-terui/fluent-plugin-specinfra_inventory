@@ -52,10 +52,10 @@ describe Fluent::SpecinfraInventoryInput do
   end
 
   describe "record on flat hash" do
-    example { expect(@d.instance.record("cpu")).to include('total' => "2") }
+    example { expect(@d.instance.record("cpu")['cpu']).to include('total' => "2") }
   end
 
   describe "record on nested hash" do
-    example { expect(@d.instance.record("cpu.0")).to include('vendor_id' => "1") }
+    example { expect(@d.instance.record("cpu.0")['cpu.0']).to include('vendor_id' => "1") }
   end
 end

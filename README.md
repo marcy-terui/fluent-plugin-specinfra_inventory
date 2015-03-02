@@ -46,6 +46,7 @@ defualt: `60`
 ### tag_prefix
 Prefix of tags of events.  
 Event tags are added together inventory key at the end. like: `example.prefix.cpu`  
+If you set 'true' to `combine` option, Does not added the key at the end.
 default: `specinfra.inventory`
 
 ### backend

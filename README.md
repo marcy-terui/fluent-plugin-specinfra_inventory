@@ -27,6 +27,7 @@ Or install it yourself as:
   tag_prefix     example.prefix
   backend        exec
   inventory_keys ["cpu.total","memory"]
+  combine        false
   family         ubuntu
   release        14.04
   arch           x86_64
@@ -51,10 +52,13 @@ default: `specinfra.inventory`
 Specinfra backend type.  
 default: `exec`
 
-
 ### inventory_keys
 Key of Host Inventory.  
 If you access the key on nested Hash, you should separated by `.`
+
+### combine
+Combining values of `inventory_keys` to one record.  
+default: `true`
 
 ### family, release, arch
 See [Multi OS Support](http://serverspec.org/tutorial.html)

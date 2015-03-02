@@ -13,7 +13,8 @@ module Fluent
     config_param :ssh_user,       :string,  default: nil
     config_param :ssh_port,       :integer, default: nil
     config_param :env,            :hash,    default: {}
-    config_param :inventory_keys, :array
+    config_param :inventory_keys,   :array,   default: []
+    config_param :combine,        :bool,    default: true
 
     KEY_DELIMITER = "."
 
@@ -60,10 +61,27 @@ module Fluent
     def run
       loop do
         time = Engine.now
-        @inventory_keys.each do |key|
-          Engine.emit(tag(key), time, record(key))
+        if @combine
+          emit_combine_record(time)
+        else
+          emit_separate_record(time)
         end
         sleep @time_span
+      end
+    end
+
+    def emit_combine_record(time)
+      records = {}
+      @inventory_keys.each do |key|
+        records.merge!(record(key))
+      end
+      Engine.emit(@tag_prefix, time, records) if records.length > 0
+    end
+
+    def emit_separate_record(time)
+      time = Engine.now
+      @inventory_keys.each do |key|
+        Engine.emit(tag(key), time, record(key))
       end
     end
 

@@ -1,3 +1,8 @@
+## 0.1.0
+
+* Change default value of `inventory_keys` option  
+(All available keys of `Specinfra::HostInventory`)
+
 ## 0.0.5
 
 * Add combine option

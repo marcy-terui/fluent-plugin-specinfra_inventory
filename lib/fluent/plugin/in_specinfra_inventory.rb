@@ -13,7 +13,7 @@ module Fluent
     config_param :ssh_user,       :string,  default: nil
     config_param :ssh_port,       :integer, default: nil
     config_param :env,            :hash,    default: {}
-    config_param :inventory_keys,   :array,   default: []
+    config_param :inventory_keys, :array,   default: []
     config_param :combine,        :bool,    default: true
 
     KEY_DELIMITER = "."
@@ -46,6 +46,7 @@ module Fluent
       Specinfra.configuration.send(:ssh_options, opt) if opt.length > 0
 
       @inventory = Specinfra::HostInventory.instance
+      @inventory_keys = @inventory.keys if @inventory_keys.empty?
     end
 
     def start

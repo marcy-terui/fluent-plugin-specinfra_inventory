@@ -1,7 +1,7 @@
 # fluent-plugin-specinfra_inventory
 [![Gem Version](https://badge.fury.io/rb/fluent-plugin-specinfra_inventory.svg)](http://badge.fury.io/rb/fluent-plugin-specinfra_inventory)
 
-Specinfra Host Inventory Plugin for [Fluentd](http://github.com/fluent/fluentd)
+[Specinfra](https://github.com/serverspec/specinfra) Host Inventory Plugin for [Fluentd](http://github.com/fluent/fluentd)
 
 ## Installation
 
@@ -46,7 +46,7 @@ defualt: `60`
 ### tag_prefix
 Prefix of tags of events.  
 Event tags are added together inventory key at the end. like: `example.prefix.cpu`  
-If you set 'true' to `combine` option, Does not added the key at the end.
+If you set `true` to `combine` option, It does not added the key at the end.
 default: `specinfra.inventory`
 
 ### backend
@@ -55,7 +55,8 @@ default: `exec`
 
 ### inventory_keys
 Key of Host Inventory.  
-If you access the key on nested Hash, you should separated by `.`
+If you access the key on nested Hash, you should separated by `.`  
+default: All available keys of `Specinfra::HostInventory`  
 
 ### combine
 Combining values of `inventory_keys` to one record.  

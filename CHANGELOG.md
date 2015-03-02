@@ -1,3 +1,11 @@
+## 0.0.5
+
+* Add combine option
+
+## 0.0.4
+
+* Change record format
+
 ## 0.0.3
 
 * Bug fix

@@ -1,3 +1,9 @@
+## 0.2.0
+
+* Add `cast_num` option
+* Add `cast_byte` option
+* Add `cast_percent` option
+
 ## 0.1.0
 
 * Change default value of `inventory_keys` option  
@@ -5,7 +11,7 @@
 
 ## 0.0.5
 
-* Add combine option
+* Add `combine` option
 
 ## 0.0.4
 

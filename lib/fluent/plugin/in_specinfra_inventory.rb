@@ -15,6 +15,9 @@ module Fluent
     config_param :env,            :hash,    default: {}
     config_param :inventory_keys, :array,   default: []
     config_param :combine,        :bool,    default: true
+    config_param :cast_num,       :bool,    default: false
+    config_param :cast_byte,      :bool,    default: false
+    config_param :cast_percent,   :bool,    default: false
 
     KEY_DELIMITER = "."
 
@@ -95,8 +98,39 @@ module Fluent
       key.split(KEY_DELIMITER).each do |k|
         inv = inv[k]
       end
-      {key => inv}
+      {key => cast(inv)}
     end
 
+    def cast(inv)
+      if @cast_num || @cast_byte || @cast_percent
+        if inv.is_a?(Hash)
+          inv = Hash[inv.map { |k,v| [k, cast(v)] }]
+        elsif inv.is_a?(Array)
+          inv = inv.map do |v|
+            v = cast(v)
+          end
+        else
+          inv = _cast_num(inv) if @cast_num && inv.is_a?(String)
+          inv = _cast_byte(inv) if @cast_byte && inv.is_a?(String)
+          inv = _cast_percent(inv) if @cast_percent && inv.is_a?(String)
+        end
+      end
+      inv
+    end
+
+    def _cast_num(v)
+      m = v.match(/^([1-9]\d*|0)$/)
+      m.nil? ? v : m[0].to_i
+    end
+
+    def _cast_byte(v)
+      m = v.match(/^(\d+)(kb|KB)$/)
+      m.nil? ? v : m[0].to_i * 1000
+    end
+
+    def _cast_percent(v)
+      m = v.match(/^(\d+)%$/)
+      m.nil? ? v : m[0].to_i
+    end
   end
 end

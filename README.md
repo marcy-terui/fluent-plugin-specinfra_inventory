@@ -29,6 +29,9 @@ Or install it yourself as:
   inventory_keys ["cpu.total","memory"]
   combine        false
   family         ubuntu
+  cast_num       true
+  cast_byte      true
+  cast_percent   true
   release        14.04
   arch           x86_64
   path           /user/local/bin
@@ -45,8 +48,8 @@ defualt: `60`
 
 ### tag_prefix
 Prefix of tags of events.  
-Event tags are added together inventory key at the end. like: `example.prefix.cpu`  
-If you set `true` to `combine` option, It does not added the key at the end.
+Event tags are added together inventory key at the end(like: `example.prefix.cpu`)  
+If you set `true` to `combine` option, It does not added the key at the end.  
 default: `specinfra.inventory`
 
 ### backend
@@ -61,6 +64,18 @@ default: All available keys of `Specinfra::HostInventory`
 ### combine
 Combining values of `inventory_keys` to one record.  
 default: `true`
+
+### cast_num
+Cast all number value to integer.  
+default: `false`
+
+### cast_byte
+Cast all byte value(like `512KB`) to integer.  
+default: `false`
+
+### cast_percent
+Cast all percentile value(like `50%`) to integer.  
+default: `false`
 
 ### family, release, arch
 See [Multi OS Support](http://serverspec.org/tutorial.html)

@@ -66,7 +66,7 @@ describe Fluent::SpecinfraInventoryInput do
 
   describe "record on nested hash" do
     example { expect(@d.instance.record("cpu.0")['cpu.0']).to include('vendor_id' => 1) }
-    example { expect(@d.instance.record("cpu.0")['cpu.0']).to include('cache_size' => 512000) }
+    example { expect(@d.instance.record("cpu.0")['cpu.0']).to include('cache_size' => 524288) }
   end
 
   describe "cast_num" do
@@ -80,7 +80,7 @@ describe Fluent::SpecinfraInventoryInput do
   describe "cast_byte" do
     example { expect(@d.instance._cast_byte("12")).to eq "12" }
     example { expect(@d.instance._cast_byte("0kb")).to eq 0 }
-    example { expect(@d.instance._cast_byte("99kb")).to eq 99000 }
+    example { expect(@d.instance._cast_byte("99kb")).to eq 101376 }
     example { expect(@d.instance._cast_byte("akb")).to eq "akb" }
     example { expect(@d.instance._cast_byte("1%")).to eq "1%" }
   end

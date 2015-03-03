@@ -124,7 +124,7 @@ module Fluent
     end
 
     def _cast_byte(v)
-      m = v.match(/^(\d+)(kb|KB)$/)
+      m = v.match(/^(\d+)(kb|KB|kB)$/)
       m.nil? ? v : m[0].to_i * 1024
     end
 

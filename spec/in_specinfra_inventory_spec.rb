@@ -81,6 +81,8 @@ describe Fluent::SpecinfraInventoryInput do
     example { expect(@d.instance._cast_byte("12")).to eq "12" }
     example { expect(@d.instance._cast_byte("0kb")).to eq 0 }
     example { expect(@d.instance._cast_byte("99kb")).to eq 101376 }
+    example { expect(@d.instance._cast_byte("99kB")).to eq 101376 }
+    example { expect(@d.instance._cast_byte("99KB")).to eq 101376 }
     example { expect(@d.instance._cast_byte("akb")).to eq "akb" }
     example { expect(@d.instance._cast_byte("1%")).to eq "1%" }
   end

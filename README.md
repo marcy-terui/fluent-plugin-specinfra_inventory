@@ -47,7 +47,7 @@ Time span(sec) for collecting inventory.
 defualt: `60`
 
 ### tag_prefix
-Prefix of tags of events.  
+Prefix of event tags.  
 Event tags are added together inventory key at the end(like: `example.prefix.cpu`)  
 If you set `true` to `combine` option, It does not added the key at the end.  
 default: `specinfra.inventory`

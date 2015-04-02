@@ -49,7 +49,7 @@ module Fluent
       Specinfra.configuration.send(:ssh_options, opt) if opt.length > 0
 
       @inventory = Specinfra::HostInventory.instance
-      @inventory_keys = @inventory.keys if @inventory_keys.empty?
+      @inventory_keys = Specinfra::HostInventory::KEYS if @inventory_keys.empty?
     end
 
     def start

@@ -1,6 +1,6 @@
 ## 0.2.3
 
-* Bug fix
+* follow the change of Specinfra
 
 ## 0.2.2
 

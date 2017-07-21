@@ -1,10 +1,11 @@
 require 'spec_helper'
+require 'fluent/test/driver/input'
 require 'fluent/plugin/in_specinfra_inventory'
 
-describe Fluent::SpecinfraInventoryInput do
+describe Fluent::Plugin::SpecinfraInventoryInput do
   before do
     Fluent::Test.setup
-    @d = Fluent::Test::InputTestDriver.new(Fluent::SpecinfraInventoryInput).configure(config)
+    @d = Fluent::Test::Driver::Input.new(Fluent::Plugin::SpecinfraInventoryInput).configure(config)
     @d.instance.inventory = {
       'cpu' => {
         'total' => "2",

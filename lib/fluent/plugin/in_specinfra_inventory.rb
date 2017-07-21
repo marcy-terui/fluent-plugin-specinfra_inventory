@@ -1,13 +1,10 @@
-require 'fluent/input'
+require 'fluent/plugin/input'
 
-module Fluent
+module Fluent::Plugin
   class SpecinfraInventoryInput < Input
-    Plugin.register_input('specinfra_inventory', self)
+    Fluent::Plugin.register_input('specinfra_inventory', self)
 
-    # Define `router` method of v0.12 to support v0.10 or earlier
-    unless method_defined?(:router)
-      define_method("router") { Fluent::Engine }
-    end
+    helpers :timer
 
     config_param :time_span,      :integer, default: 60
     config_param :tag_prefix,     :string,  default: 'specinfra.inventory'
@@ -61,25 +58,19 @@ module Fluent
 
     def start
       super
-      @finished = false
-      @thread = Thread.new(&method(:run))
+      timer_execute(:in_specinfra_inventory_timer, @time_span, &method(:run))
     end
 
     def shutdown
-      @finished = true
-      @thread.join
       super
     end
 
     def run
-      loop do
-        time = Engine.now
-        if @combine
-          emit_combine_record(time)
-        else
-          emit_separate_record(time)
-        end
-        sleep @time_span
+      time = Fluent::Engine.now
+      if @combine
+        emit_combine_record(time)
+      else
+        emit_separate_record(time)
       end
     end
 
@@ -92,7 +83,7 @@ module Fluent
     end
 
     def emit_separate_record(time)
-      time = Engine.now
+      time = Fluent::Engine.now
       @inventory_keys.each do |key|
         router.emit(tag(key), time, record(key))
       end

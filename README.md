@@ -23,6 +23,7 @@ Or install it yourself as:
 
 ```
 <source>
+  @type specinfra_inventory
   time_span      300
   tag_prefix     example.prefix
   backend        exec

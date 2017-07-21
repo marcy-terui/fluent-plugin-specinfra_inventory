@@ -60,6 +60,7 @@ module Fluent
     end
 
     def start
+      super
       @finished = false
       @thread = Thread.new(&method(:run))
     end
@@ -67,6 +68,7 @@ module Fluent
     def shutdown
       @finished = true
       @thread.join
+      super
     end
 
     def run
